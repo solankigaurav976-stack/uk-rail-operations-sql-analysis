@@ -1,0 +1,158 @@
+-- UK Rail Operations Performance Analysis
+-- Data Quality & Validation
+-- Source: Office of Rail and Road (ORR) Table 3124
+
+
+-- 1. Overall record and missing-value check
+
+SELECT
+    COUNT(*) AS total_records,
+
+    COUNT(*) FILTER (
+        WHERE time_period IS NULL
+    ) AS missing_time_period,
+
+    COUNT(*) FILTER (
+        WHERE national_or_operator IS NULL
+    ) AS missing_operator,
+
+    COUNT(*) FILTER (
+        WHERE trains_planned IS NULL
+    ) AS missing_trains_planned,
+
+    COUNT(*) FILTER (
+        WHERE cancellation_number IS NULL
+    ) AS missing_cancellation_score,
+
+    COUNT(*) FILTER (
+        WHERE periodic_cancellation_percentage IS NULL
+    ) AS missing_periodic_rate,
+
+    COUNT(*) FILTER (
+        WHERE moving_annual_average_percentage IS NULL
+    ) AS missing_moving_average
+
+FROM rail_cancellations;
+
+
+-- 2. Check for duplicate operator-period records
+
+SELECT
+    national_or_operator AS operator,
+    time_period,
+    COUNT(*) AS record_count
+
+FROM rail_cancellations
+
+GROUP BY
+    national_or_operator,
+    time_period
+
+HAVING COUNT(*) > 1
+
+ORDER BY record_count DESC;
+
+
+-- 3. Check for negative operational values
+
+SELECT
+    COUNT(*) FILTER (
+        WHERE trains_planned < 0
+    ) AS negative_trains_planned,
+
+    COUNT(*) FILTER (
+        WHERE trains_part_cancelled < 0
+    ) AS negative_part_cancelled,
+
+    COUNT(*) FILTER (
+        WHERE trains_full_cancelled < 0
+    ) AS negative_full_cancelled,
+
+    COUNT(*) FILTER (
+        WHERE cancellation_number < 0
+    ) AS negative_cancellation_score,
+
+    COUNT(*) FILTER (
+        WHERE periodic_cancellation_percentage < 0
+    ) AS negative_periodic_rate
+
+FROM rail_cancellations;
+
+
+-- 4. Check cancellation score against
+-- full cancellations + half of part cancellations
+
+SELECT
+    national_or_operator AS operator,
+
+    ROUND(
+        SUM(cancellation_number),
+        2
+    ) AS recorded_cancellation_score,
+
+    ROUND(
+        SUM(trains_full_cancelled)
+        + SUM(trains_part_cancelled) * 0.5,
+        2
+    ) AS calculated_cancellation_score,
+
+    ROUND(
+        SUM(cancellation_number)
+        - (
+            SUM(trains_full_cancelled)
+            + SUM(trains_part_cancelled) * 0.5
+        ),
+        2
+    ) AS difference
+
+FROM rail_cancellations
+
+WHERE national_or_operator NOT IN (
+    'Great Britain',
+    'England and Wales',
+    'Scotland'
+)
+
+GROUP BY national_or_operator
+
+ORDER BY ABS(
+    SUM(cancellation_number)
+    - (
+        SUM(trains_full_cancelled)
+        + SUM(trains_part_cancelled) * 0.5
+    )
+) DESC;
+
+
+-- 5. Check impossible cancellation percentages
+
+SELECT
+    COUNT(*) AS rates_above_100_percent
+
+FROM rail_cancellations
+
+WHERE periodic_cancellation_percentage > 100;
+
+
+-- 6. Check reporting coverage by operator
+
+SELECT
+    national_or_operator AS operator,
+
+    COUNT(*) AS reporting_periods,
+
+    MIN(time_period) AS first_record,
+
+    MAX(time_period) AS latest_record
+
+FROM rail_cancellations
+
+WHERE national_or_operator NOT IN (
+    'Great Britain',
+    'England and Wales',
+    'Scotland'
+)
+
+GROUP BY national_or_operator
+
+ORDER BY reporting_periods DESC;
