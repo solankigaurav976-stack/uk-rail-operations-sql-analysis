@@ -1,5 +1,7 @@
 # UK Rail Operations Performance Analysis with SQL
 
+![UK Rail Operations Performance Analysis](images/uk-rail-operations-banner.png)
+
 ## From Planned to Delivered: Analysing UK Rail Cancellation Performance
 
 A SQL-based analysis of UK rail cancellation performance using official Office of Rail and Road (ORR) data.
