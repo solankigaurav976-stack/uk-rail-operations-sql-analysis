@@ -67,8 +67,6 @@ The results show variation in cancellation performance across operators and demo
 
 ## SQL Results
 
-## SQL Results
-
 ### 1. Operator Performance
 
 The master operator KPI query provides a consolidated view of planned trains, cancellation score, cancellation rate, average periodic rate, peak rate and variability.
