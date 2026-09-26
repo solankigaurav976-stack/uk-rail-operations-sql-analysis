@@ -207,3 +207,21 @@ SUM(cancellation_number)
 /
 SUM(trains_planned)
 * 100
+
+## Project Structure
+
+```text
+uk-rail-operations-sql-analysis/
+│
+├── sql/
+│   ├── 01_data_cleaning.sql
+│   ├── 02_operator_analysis.sql
+│   ├── 03_cancellation_causes.sql
+│   ├── 04_trend_analysis.sql
+│   ├── 05_operator_consistency.sql
+│   ├── 06_data_quality_validation.sql
+│   └── 07_final_kpis.sql
+│
+├── README.md
+└── data/
+    └── ORR Table 3124 dataset
