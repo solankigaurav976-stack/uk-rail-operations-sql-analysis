@@ -171,6 +171,9 @@ These checks help ensure that the SQL analysis is based on a validated analytica
 
 **Dataset:** Table 3124 – Trains planned and cancellations by operator (periodic)
 
+**Official source:**  
+[ORR Table 3124 – Trains planned and cancellations by operator (periodic)](https://dataportal.orr.gov.uk/statistics/performance/passenger-rail-performance/table-3124-trains-planned-and-cancellations-by-operator-periodic/)
+
 The dataset contains information including:
 
 - Reporting period
