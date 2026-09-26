@@ -67,6 +67,8 @@ The results show variation in cancellation performance across operators and demo
 
 ## SQL Results
 
+## SQL Results
+
 ### 1. Operator Performance
 
 The master operator KPI query provides a consolidated view of planned trains, cancellation score, cancellation rate, average periodic rate, peak rate and variability.
@@ -99,7 +101,7 @@ The period-trend analysis compares cancellation performance across the 96 report
 
 ### 4. Peak Cancellation Periods
 
-The peak-period analysis uses `RANK()` to identify the highest recorded periodic cancellation rate for each operator.
+This analysis identifies the highest individual reporting-period cancellation rate recorded for each operator.
 
 ![Peak Cancellation Periods](images/peak-cancellation-periods.png)
 
