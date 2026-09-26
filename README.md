@@ -4,7 +4,7 @@
 
 ## From Planned to Delivered: Analysing UK Rail Cancellation Performance
 
-A SQL-based analysis of UK rail cancellation performance using official Office of Rail and Road (ORR) data.
+A SQL based analysis of UK rail cancellation performance using official Office of Rail and Road (ORR) data.
 
 The project investigates operator performance, cancellation causes, reporting-period trends, consistency and data quality using PostgreSQL.
 
