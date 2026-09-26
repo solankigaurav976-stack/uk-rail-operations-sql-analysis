@@ -42,6 +42,87 @@ The analysis addresses the following questions:
 
 ---
 
+## Key Findings
+
+### 1. Operator Cancellation Performance
+
+The analysis calculates cancellation performance using the ORR cancellation score relative to trains planned.
+
+| Operator | Trains Planned | Cancellation Score | Calculated Cancellation Rate |
+|---|---:|---:|---:|
+| CrossCountry | 609,609 | 34,462.60 | 5.65% |
+| Avanti West Coast | 635,177 | 34,420.00 | 5.42% |
+| Greater Thameslink Railway | 8,250,801 | 411,935.70 | 4.99% |
+| TransPennine Express | 743,851 | 35,524.50 | 4.78% |
+| West Midlands Trains | 2,877,418 | 123,701.00 | 4.30% |
+| Grand Central | 42,296 | 1,749.50 | 4.14% |
+| TfW Rail | 2,291,749 | 93,337.00 | 4.07% |
+| Northern Trains | 5,960,756 | 237,781.10 | 3.99% |
+
+The results show variation in cancellation performance across operators and demonstrate why operator-level comparison is useful for operational performance analysis.
+
+---
+
+### 2. Cancellation Causes
+
+The cancellation-cause analysis identified four ORR responsibility categories:
+
+| Cancellation Cause | Cancellation Score | Share of Total |
+|---|---:|---:|
+| Train Operator Fault | 895,158.00 | 48.84% |
+| Infrastructure & Network Management | 507,296.00 | 27.68% |
+| Infrastructure Owner External Event | 353,016.00 | 19.26% |
+| Operator External Event | 77,402.00 | 4.22% |
+
+Train Operator Fault represents the largest share of the analysed cancellation score, followed by Infrastructure & Network Management.
+
+> Note: ORR cancellation responsibility categories should not be interpreted as mutually exclusive counts of cancelled trains. They represent cancellation scores attributed to different responsibility categories.
+
+---
+
+### 3. Reporting-Period Variation
+
+The reporting-period analysis uses SQL aggregation and window functions to examine changes in cancellation performance over time.
+
+The analysis calculates:
+
+- Average cancellation percentage
+- Lowest operator cancellation percentage
+- Highest operator cancellation percentage
+- Period-on-period change
+- Moving annual average comparison
+
+`LAG()` is used to compare each reporting period with the previous period and identify significant changes in performance.
+
+---
+
+### 4. Operator Consistency
+
+Operator-level consistency was analysed using:
+
+- Average cancellation rate
+- Peak periodic cancellation rate
+- Rate variability
+- Number of reporting periods above 5%
+- Reporting-period coverage
+
+This helps distinguish operators with consistently similar performance from those experiencing greater variation between reporting periods.
+
+---
+
+### 5. Data Quality
+
+The project also performs validation checks for:
+
+- Missing values
+- Duplicate operator-period records
+- Negative operational values
+- Cancellation rates above 100%
+- Cancellation-score reconciliation
+- Operator reporting coverage
+
+These checks help ensure that the SQL analysis is based on a validated analytical dataset rather than simply querying the raw CSV.
+
 ## Dataset
 
 **Source:** Office of Rail and Road (ORR)
