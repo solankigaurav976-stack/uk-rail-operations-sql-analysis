@@ -65,6 +65,46 @@ The results show variation in cancellation performance across operators and demo
 
 ---
 
+## SQL Results
+
+### 1. Operator Performance
+
+The master operator KPI query provides a consolidated view of planned trains, cancellation score, cancellation rate, average periodic rate, peak rate and variability.
+
+![Operator Performance](images/operator-performance.png)
+
+*PostgreSQL query output — operator performance KPIs.*
+
+---
+
+### 2. Cancellation Causes
+
+The cancellation-cause analysis breaks the recorded cancellation score into four responsibility categories.
+
+![Cancellation Causes](images/cancellation-causes.png)
+
+*PostgreSQL query output — cancellation cause analysis.*
+
+---
+
+### 3. Reporting-Period Trends
+
+The period-trend analysis compares cancellation performance across the 96 reporting periods.
+
+![Period Trends](images/period-trends.png)
+
+*PostgreSQL query output — reporting-period trend analysis.*
+
+---
+
+### 4. Peak Cancellation Periods
+
+The peak-period analysis uses `RANK()` to identify the highest recorded periodic cancellation rate for each operator.
+
+![Peak Cancellation Periods](images/peak-cancellation-periods.png)
+
+*PostgreSQL query output — operator peak cancellation periods.*
+
 ### 2. Cancellation Causes
 
 The cancellation-cause analysis identified four ORR responsibility categories:
